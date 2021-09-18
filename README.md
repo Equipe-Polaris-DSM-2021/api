@@ -1,79 +1,59 @@
 # Backend
 
-Neste guia iremos configurar o ambiente de desenvolvimento com a instalação do nodeJS, clonar o projeto do gitHub, instalação das dependências do projeto, e explicação da estrutura das pastas.
+Neste guia iremos configurar o ambiente de desenvolvimento, clonando o projeto e instalando suas dependências, além de como executar. Ainda neste guia é possível encontrar uma breve explicação da estrutura das pastas adotada para a construção em equipe desse projeto.
 
----
+### Links úteis (para antes de clonar o repositório)
+- [Instalação das ferramentas](https://www.notion.so/Instala-o-das-ferramentas-405f3e8b014649cbb422dee6b5bd0535): como instalar o Node, NPM ou Yarn e o Visual Studio Code (tutoriais para Windows, MacOS e Linux)
+- [Atualização (caso já tenha as ferramentas](https://www.notion.so/Atualiza-o-vers-es-diferentes-09abff4d88d44c459a7c7a925ad15bfa): se já passou pelo processo de instalação do Node, NPM e Yarn alguma vez, realize este tutorial para garantir as versões mais recentes das ferramentas (para Windows, MacOS e Linux)
+- [Caso surja algum problema...](https://www.notion.so/Tive-problemas-e-agora-c67378e1319d4723a3211aad8eb987c6)
 
-<br/>
-<br/>
-
-# Guias
-
-[Instalação das ferramentas](https://www.notion.so/Instala-o-das-ferramentas-405f3e8b014649cbb422dee6b5bd0535)
-
-[Atualização (versões diferentes)](https://www.notion.so/Atualiza-o-vers-es-diferentes-09abff4d88d44c459a7c7a925ad15bfa)
-
-[Tive problemas, e agora?](https://www.notion.so/Tive-problemas-e-agora-c67378e1319d4723a3211aad8eb987c6)
-
-<br/>
-
-# Clonando projeto
-
-Em qualquer lugar de sua preferência:
+  
+## Clonando projeto
+Com todas as ferramentas necessárias devidamente instaladas, baixe ou clone este repositório pelo terminal seguindo passo a passo descrito abaixo.
 
 ```bash
-git clone https://github.com/Equipe-Polaris-DSM-2021/back.git
+# Baixe este repositório ou clone pelo Git usando o comando:
+$ git clone https://github.com/Equipe-Polaris-DSM-2021/back.git
+
+# Acesse a pasta do projeto
+$ cd back-main
+
+# Instale as dependências do projeto (são listadas no arquivo package.json)
+$ npm install
+# ou
+$ yarn add
+
+# Rode as migrations para que sejam geradas pelo TypeORM
+$ npm install
+# ou
+$ yarn add
+
+# Execute o projeto
+$ npm start
+# ou
+$ yarn start
 ```
+Agora o servidor deste projeto está ativo. É só acessar pelo localhost na porta 3333: [https://localhost:3333]!
 
-**Abra o projeto no vsCode**
 
-```bash
-cd back
-code .
-```
-
-# Instalação das dependências do projeto
-
-As dependências que serão instaladas estão listadas no package.json
-
-```bash
-yarn install
-```
-
-Emular o projeto
-
-```bash
-yarn start
-```
-
-<br/>
-<br/>
-
-# Explicação da estrutura das pastas
+## Explicação da estrutura das pastas
 
 | Pasta                   | Definição                                                                                                                    |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| __ tests __             | Pasta para configuração e execução de testes com Jest. Execução de testes: "yarn jest"                                       |
-| src/app/controllers     | Pasta de arquivos contendo os metodos de requisição das rotas (Organizar o nome com "assunto + Controller.ts").              |
-| src/app/models          | Pasta de arquivos contendo os moldes/classes da aplicação.                                                                   |
-| src/database/migrations | Pasta com arquivos gerados pelo TypeORM atraves do comando: "yarn typeorm migration:create -n Create + assunto + Table"      |
-| ormconfig.json          | Arquivo de configuração do TypeORM indicando qual, login e porta do banco de dados, esquema de pastas, etc                   |
-| package.json            | Contém metadados relevantes para o projeto e é usado para gerenciar as dependências do projeto, scripts, versão e muito mais |
-| node_modules            | Armazena as bibliotecas (dependências) do projeto                                                                            |
+| :open_file_folder: __ tests __             | Configuração e execução de testes com Jest (para executar: `yarn jest`)                                   |
+| :open_file_folder: node_modules/           | Armazena as bibliotecas (dependências) usadas pelo projeto                                                |
+| :open_file_folder: src/ app/ controllers     | Arquivos com os métodos de requisição das rotas                                                           |
+| :open_file_folder: src/ app/ models          | Arquivos considerados moldes/classes da aplicação                                                         |
+| :open_file_folder: src/ database/ migrations | Arquivos gerados pelo TypeORM                                                                             |
+| :page_facing_up: ormconfig.json            | Arquivo de configuração do TypeORM (indica login e porta do banco de dados, esquema de pastas e etc)      |
+| :page_facing_up: package.json              | Arquivo usado para gerenciar as dependências do projeto, scripts e versões                                |
 
-<br/>
 
-**Documentações**
+### Tecnologias utilizadas
+As seguintes tecnologias e ferramentas estão sendo utilizadas neste projeto:
 
-[ExpressJS](https://expressjs.com/pt-br/)
-
-[TypeORM](https://typeorm.io/#/)
-
-[PostgreSQL](https://www.postgresql.org/docs/) 
-
-[Jest](https://jestjs.io/docs/getting-started) 
-
-<br/>
-<br/>
-
-_Bora codar 🚀_
+- [TypeScript](https://www.typescriptlang.org/)
+- [ExpressJS](https://expressjs.com/pt-br/)
+- [TypeORM](https://typeorm.io/#/)
+- [PostgreSQL](https://www.postgresql.org/docs/)
+- [Jest](https://jestjs.io/docs/getting-started) 
