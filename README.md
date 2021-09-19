@@ -19,18 +19,12 @@ $ git clone https://github.com/Equipe-Polaris-DSM-2021/api.git
 $ cd api-main
 
 # Instale as dependências do projeto (são listadas no arquivo package.json)
-$ npm install
-# ou
-$ yarn add
+$ yarn
 
 # Rode as migrations para que sejam geradas pelo TypeORM
-$ npm install
-# ou
-$ yarn add
+$ yarn typeorm migration:run
 
 # Execute o projeto
-$ npm start
-# ou
 $ yarn start
 ```
 Agora o servidor deste projeto está ativo. É só acessar pelo localhost na porta 3333: [https://localhost:3333]!
@@ -38,15 +32,15 @@ Agora o servidor deste projeto está ativo. É só acessar pelo localhost na por
 
 ## Explicação da estrutura das pastas
 
-| Pasta                   | Definição                                                                                                                    |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| :open_file_folder: __ tests __             | Configuração e execução de testes com Jest (para executar: `yarn jest`)                                   |
-| :open_file_folder: node_modules/           | Armazena as bibliotecas (dependências) usadas pelo projeto                                                |
+| Pasta                                        | Definição                                                                                                 |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| :open_file_folder: __ tests __               | Configuração e execução de testes com Jest (para executar: `yarn jest`)                                   |
+| :open_file_folder: node_modules/             | Armazena as bibliotecas (dependências) usadas pelo projeto                                                |
 | :open_file_folder: src/ app/ controllers     | Arquivos com os métodos de requisição das rotas                                                           |
 | :open_file_folder: src/ app/ models          | Arquivos considerados moldes/classes da aplicação                                                         |
 | :open_file_folder: src/ database/ migrations | Arquivos gerados pelo TypeORM                                                                             |
-| :page_facing_up: ormconfig.json            | Arquivo de configuração do TypeORM (indica login e porta do banco de dados, esquema de pastas e etc)      |
-| :page_facing_up: package.json              | Arquivo usado para gerenciar as dependências do projeto, scripts e versões                                |
+| :page_facing_up: ormconfig.json              | Arquivo de configuração do TypeORM (indica login e porta do banco de dados, esquema de pastas e etc)      |
+| :page_facing_up: package.json                | Arquivo usado para gerenciar as dependências do projeto, scripts e versões                                |
 
 
 ### Tecnologias utilizadas
