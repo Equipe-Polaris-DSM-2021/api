@@ -1,4 +1,4 @@
-# Backend
+# API
 
 Neste guia iremos configurar o ambiente de desenvolvimento, clonando o projeto e instalando suas dependências, além de como executar. Ainda neste guia é possível encontrar uma breve explicação da estrutura das pastas adotada para a construção em equipe desse projeto.
 
@@ -13,10 +13,10 @@ Com todas as ferramentas necessárias devidamente instaladas, baixe ou clone est
 
 ```bash
 # Baixe este repositório ou clone pelo Git usando o comando:
-$ git clone https://github.com/Equipe-Polaris-DSM-2021/back.git
+$ git clone https://github.com/Equipe-Polaris-DSM-2021/api.git
 
 # Acesse a pasta do projeto
-$ cd back-main
+$ cd api-main
 
 # Instale as dependências do projeto (são listadas no arquivo package.json)
 $ npm install
