@@ -4,9 +4,19 @@ const app = require('./server');
 const dfd = require("danfojs-node")
 const tf = require("@tensorflow/tfjs-node")
 
-const CBERS_MUX_csv_URL = "https://s3.amazonaws.com/cbers-meta-pds/MUXscene_list.csv"
-const CBERS_MUX_csv_local = "../file-samples/CBERS4-MUXscene_list.csv"
+//lista de repos conhecidos (falta sentinel-1 e amazonia-1)
+const CBERS_AWFI_csv_URL:string = 'https://s3.amazonaws.com/cbers-meta-pds/AWFIscene_list.csv'
+const CBERS_MUX_csv_URL: string = "https://s3.amazonaws.com/cbers-meta-pds/MUXscene_list.csv"
+const CBERS_MUX_csv_local: string = "../file-samples/CBERS4-MUXscene_list.csv"
+const CBERS_PAN10M_csv_URL: string = 'https://s3.amazonaws.com/cbers-meta-pds/PAN10Mscene_list.csv'
+const CBERS_PAN5M_csv_URL: string = 'https://s3.amazonaws.com/cbers-meta-pds/PAN5Mscene_list.csv'
 
+const Sentinel2_csv_URL: string = 'https://storage.googleapis.com/gcp-public-data-sentinel-2/index.csv.gz'
+
+const Landsat4_8_csv_URL: string = 'https://storage.googleapis.com/gcp-public-data-landsat/index.csv.gz'
+
+// teste utilizando a biblioteca, falta implementar o paradigma POO
+// e estruturar pastas + metodos e rotas
 app.use("/", async (req: Request, res: Response) => {
   dfd.read_csv(
     CBERS_MUX_csv_local, {
