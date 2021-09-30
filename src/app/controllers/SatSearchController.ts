@@ -1,42 +1,47 @@
 import { Request, Response } from "express";
-import fetch from 'node-fetch';
+import earthSearchAPI from "../../services/earthSearchAPI";
+import 'dotenv/config'
 
 class SatSearchController {
-  async index(request:Request, response:Response) {
-    const {bbox, cloudCover, time} = request.body
-    
-    const inputBody = `{
-      "bbox": ${bbox},
-      "time": ${time},
-      "intersects": null,
-      "query": {
-        "eo:cloud_cover": {
-          "lt": ${cloudCover}
-        }
-      },
-      "sort": [
-        {
-          "field": "eo:cloud_cover",
-          "direction": "asc"
-        }
-      ]
-    }`;
+  async index(request: Request, response: Response) {
+    try {
+      const { bbox, cloudCover, time } = request.body
 
-    const headers = {
-      'Content-Type':'application/json',
-      'Accept':'application/geo+json'
+      const inputBody = `{
+        "bbox": ${bbox},
+        "time": ${time},
+        "intersects": null,
+        "query": {
+          "eo:cloud_cover": {
+            "lt": ${cloudCover}
+          }
+        },
+        "sort": [
+          {
+            "field": "eo:cloud_cover",
+            "direction": "asc"
+          }
+        ]
+      }`;
+      
+      const headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/geo+json'
+      };
+      
+      const featureCollection = await earthSearchAPI.post(
+        `/search`,
+        inputBody, {
+          headers: headers
+        }
+        )
+        
+    return response.json(featureCollection.data)
     
-    };
+  } catch (err) {
+    return response.json({"message": err})
+    }
     
-    fetch('https://earth-search.aws.element84.com/v0/search', {
-      method: 'POST',
-      body: inputBody,
-      headers: headers
-    }).then(function(res) {
-        return res.json();
-    }).then(function(body) {
-      response.json(body);
-    });
   }
 }
 
