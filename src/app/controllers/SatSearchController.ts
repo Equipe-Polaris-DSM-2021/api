@@ -5,9 +5,17 @@ import 'dotenv/config'
 class SatSearchController {
   async index(request: Request, response: Response) {
     try {
-      const { bbox, cloudCover, time } = request.body
+      const { bbox, cloudCover, date_initial, date_final } = request.body
       
-      const imagesLandsat = await Landsat.find()
+      const imagesLandsat = await Landsat.find({
+        'properties.eo:cloud_cover': {
+            '$lte': cloudCover
+        },
+        'properties.datetime': {
+            '$gte': date_initial, 
+            '$lte': date_final
+        }
+    })
       
       return response.json({"features": imagesLandsat})
 

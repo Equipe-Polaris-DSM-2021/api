@@ -28,6 +28,6 @@ const LandsatSchema = new mongoose.Schema({
 
 })
 
-const Landsat = mongoose.model('landsat', LandsatSchema, 'landsat' );
+const Landsat = mongoose.model('landsat2', LandsatSchema, 'landsat2' );
 
 export default Landsat
