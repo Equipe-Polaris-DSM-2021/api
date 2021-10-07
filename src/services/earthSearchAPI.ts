@@ -5,4 +5,8 @@ const earthSearchAPI = axios.create({
   baseURL: process.env.EARTH_SEARCH
 })
 
-export default earthSearchAPI
+const STAC_API = axios.create({
+  baseURL: process.env.STAC_API
+})
+
+export {earthSearchAPI, STAC_API}
