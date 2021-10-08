@@ -9,4 +9,8 @@ const STAC_API = axios.create({
   baseURL: process.env.STAC_API
 })
 
-export {earthSearchAPI, STAC_API}
+const DEV_SEED = axios.create({
+  baseURL: process.env.DEV_SEED
+})
+
+export {earthSearchAPI, STAC_API, DEV_SEED}
