@@ -1,52 +1,64 @@
 import { Request, Response } from "express";
 import Landsat from "../models/Landsat";
-import { DEV_SEED } from "../../services/earthSearchAPI";
+import axios from 'axios'
+import { DEV_SEED, earthSearchAPI } from "../../services/earthSearchAPI";
 import 'dotenv/config'
 
 class SatSearchController {
   async index(req: Request, res: Response) {
+    //using DevSeed's API
     try {
-      const { bbox, cloudCover, date_initial, date_final } = req.body
+      const { satelliteOptions, bbox, cloudCover, date_initial, date_final } = req.body
 
       const period = `${date_initial}/${date_final}`
+    
+        let imagesResponse:any = []
+        
+        for(let satellite of satelliteOptions) {
+          console.log(satellite)
+          let inputBody = {
+            "bbox": bbox,
+            "time": period,
+            "intersects": null,
+            "limit": 50,
+            "query": {
+              "eo:cloud_cover": {
+                "lt": cloudCover
+              },
+              "collection": {
+                "eq": satellite
+              }
+            },
+            "sort": [
+              {
+                "field": "eo:cloud_cover",
+                "direction": "desc"
+              }
+            ]
+          };
+    
+          let headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/geo+json'
+          };
+    
+          const satCollection = await DEV_SEED.post(
+            '/stac/search',
+            inputBody,
+            { headers }
+          )
 
-      const inputBody = {
-        "bbox": bbox,
-        "time": period,
-        "intersects": null,
-        "query": {
-          "eo:cloud_cover": {
-            "lt": cloudCover
-          }
-        },
-        "sort": [
-          {
-            "field": "eo:cloud_cover",
-            "direction": "desc"
-          }
-        ]
-      };
+          imagesResponse.push({[satellite]:satCollection.data})
+        }
 
-      const headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/geo+json'
-
-      };
-
-      const response = await DEV_SEED.post(
-        '/stac/search',
-        inputBody,
-        { headers }
-      )
-
-      return res.json(response.data)
-    } catch (err) {
-      console.log(err)
+        return res.json(imagesResponse)
+      } catch (err) {
+        console.log(err)
+      }
     }
-  }
 
 
-
+  // with crawler method
   // try {
   //   const { bbox, cloudCover, date_initial, date_final } = req.body
 
