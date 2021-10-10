@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev --transpile-only --ignore-watch node_modules src/index.ts",
+    "start": "tsc && node build/src/index.js",
     "dev": "npx nodemon --exec ts-node src/index.ts",
     "typeorm": "npx ts-node ./node_modules/typeorm/cli.js"
   },
