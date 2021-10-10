@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "scripts": {
+  "scripts": {    
+    "start": "npx nodemon --exec ts-node src/index.ts",
     "dev": "npx nodemon --exec ts-node src/index.ts",
     "typeorm": "npx ts-node ./node_modules/typeorm/cli.js"
   },
