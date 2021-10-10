@@ -16,10 +16,7 @@
     "jest": "^27.1.1",
     "nodemon": "^2.0.12",
     "supertest": "^6.1.6",
-    "ts-jest": "^27.0.5",
-    "ts-node": "^10.2.1",
-    "ts-node-dev": "^1.1.8",
-    "typescript": "^4.4.2"
+    "ts-jest": "^27.0.5"
   },
   "dependencies": {
     "axios": "^0.21.4",
@@ -31,6 +28,8 @@
     "mongoose": "^6.0.9",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.37"
+    "typeorm": "^0.2.37",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
   }
 }
