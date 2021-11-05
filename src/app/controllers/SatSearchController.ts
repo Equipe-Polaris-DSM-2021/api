@@ -4,8 +4,6 @@ import axios from 'axios'
 import { DEV_SEED, earthSearchAPI } from "../../services/earthSearchAPI";
 import 'dotenv/config'
 
-let JSZip = require("jszip");
-
 class SatSearchController {
   async index(req: Request, res: Response) {
     //using DevSeed's API

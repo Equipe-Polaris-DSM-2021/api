@@ -41,22 +41,22 @@ def normalize(array):
     return (array - array_min) / (array_max - array_min)
 
 
-def make_color_image(b1: int, b2: int, b3: int, fpath: str):
+def make_color_image(b1: int, b2: int, b3: int, fullURL: str):
     '''
     make_false_color_image: combine nominated Landsat-8 bands into false color image
     
     Parameters:
-    b1, b2, b3 int - values between 1 - 6 (inclusive), being a Landsat-8 band number
+    b1, b2, b3 integers - values between 1 - 6 (inclusive), being a Landsat-8 band number
     
-    fpath str - template for URL to Landsat-8 data
+    fullURL string - template for URL to Landsat-8 data
     
-    Band Number Description       Wavelength Resolution
-    Band 1      Coastal / Aerosol 0.433 to 0.453 µm 30 meter
-    Band 2      Visible blue      0.450 to 0.515 µm 30 meter
-    Band 3      Visible green     0.525 to 0.600 µm 30 meter
-    Band 4      Visible red       0.630 to 0.680 µm 30 meter
-    Band 5      Near-infrared     0.845 to 0.885 µm 0 meter
-    Band 6      Short wavelength infrared 1.56 to 1.66 µm 30 meter
+    Band Number     Description                 Wavelength Resolution
+    Band 1          Coastal / Aerosol           0.433 to 0.453 µm 30 meter
+    Band 2          Visible blue                0.450 to 0.515 µm 30 meter
+    Band 3          Visible green               0.525 to 0.600 µm 30 meter
+    Band 4          Visible red                 0.630 to 0.680 µm 30 meter
+    Band 5          Near-infrared               0.845 to 0.885 µm 0 meter
+    Band 6          Short wavelength infrared   1.56 to 1.66 µm 30 meter
     
     Environment:
     assumes rasterio imported as rio
@@ -77,9 +77,9 @@ def make_color_image(b1: int, b2: int, b3: int, fpath: str):
     # endif
 
     # create URLs for each band
-    b1_path = fpath[:-6] + f'B{b1}.TIF'
-    b2_path = fpath[:-6] + f'B{b2}.TIF'
-    b3_path = fpath[:-6] + f'B{b3}.TIF'
+    b1_path = fullURL[:-6] + f'B{b1}.TIF'
+    b2_path = fullURL[:-6] + f'B{b2}.TIF'
+    b3_path = fullURL[:-6] + f'B{b3}.TIF'
     print(b1_path)
 
     # open URL with rasterio
@@ -104,23 +104,27 @@ def make_color_image(b1: int, b2: int, b3: int, fpath: str):
 
 
 def make_color_image_eqh(
-    b1: int, b2: int, b3: int, fpath: str
+    b1: int, b2: int, b3: int, fullURL: str
 ):
     '''
     make_false_color_image: combine nominated Landsat-8 bands into false color image
     
     Parameters:
-    b1, b2, b3 int - values between 1 - 6 (inclusive), being a Landsat-8 band number
+    b1, b2, b3 integers - values between 1 - 6 (inclusive), being a Landsat-8 band number
     
-    fpath str - template for URL to Landsat-8 data
+    fullURL string - template for URL to Landsat-8 data
     
-    Band Number Description       Wavelength Resolution
-    Band 1      Coastal / Aerosol 0.433 to 0.453 µm 30 meter
-    Band 2      Visible blue      0.450 to 0.515 µm 30 meter
-    Band 3      Visible green     0.525 to 0.600 µm 30 meter
-    Band 4      Visible red       0.630 to 0.680 µm 30 meter
-    Band 5      Near-infrared     0.845 to 0.885 µm 0 meter
-    Band 6      Short wavelength infrared 1.56 to 1.66 µm 30 meter
+    Band Number     Description                 Wavelength Resolution
+    Band 1          Coastal / Aerosol           0.433 to 0.453 µm 30 meter
+    Band 2          Visible blue                0.450 to 0.515 µm 30 meter
+    Band 3          Visible green               0.525 to 0.600 µm 30 meter
+    Band 4          Visible red                 0.630 to 0.680 µm 30 meter
+    Band 5          Near-infrared               0.845 to 0.885 µm 0 meter
+    Band 6          Short wavelength infrared   1.56 to 1.66 µm 30 meter
+    
+    Environment:
+    assumes rasterio imported as rio
+    assumes boto package  available for AWS file storage access
     '''
 
     if not (
@@ -134,12 +138,11 @@ def make_color_image_eqh(
         raise ValueError(
             f'One or more invalid Landsat-8 band number {b1}, {b2}, {b3} supplied'
         )
-    # endif
 
     # create URLs for each band
-    b1_path = fpath[:-6] + f'B{b1}.TIF'
-    b2_path = fpath[:-6] + f'B{b2}.TIF'
-    b3_path = fpath[:-6] + f'B{b3}.TIF'
+    b1_path = fullURL[:-6] + f'B{b1}.TIF'
+    b2_path = fullURL[:-6] + f'B{b2}.TIF'
+    b3_path = fullURL[:-6] + f'B{b3}.TIF'
 
     # open URL with rasterio
     b1 = rasterio.open(b1_path)
@@ -153,7 +156,7 @@ def make_color_image_eqh(
 
     eq_b1 = skimage.exposure.equalize_hist(b1_np)
     eq_b2 = skimage.exposure.equalize_hist(b2_np)
-    eq_b3 = skimage.exposure.equalize_hist(b2_np)
+    eq_b3 = skimage.exposure.equalize_hist(b3_np)
 
     # normalize data to 0<->1
     b1_norm = normalize(eq_b1)
@@ -168,34 +171,35 @@ def make_color_image_eqh(
 # ===========================================================================================================================================
 
 # main code here
+with rasterio.Env():
+    fullURL = 'https://s3-us-west-2.amazonaws.com/landsat-pds/L8/073/231/LC80732312016158LGN00/LC80732312016158LGN00_B4.TIF'
+    # fullURL = sys.argv[1]
+    print(fullURL)
 
-datasetList = [
-  'https://s3-us-west-2.amazonaws.com/landsat-pds/L8/073/231/LC80732312016158LGN00/LC80732312016158LGN00_B1.TIF',
-  'https://s3-us-west-2.amazonaws.com/landsat-pds/L8/073/231/LC80732312016158LGN00/LC80732312016158LGN00_B2.TIF',
-  'https://s3-us-west-2.amazonaws.com/landsat-pds/L8/073/231/LC80732312016158LGN00/LC80732312016158LGN00_B3.TIF'
-]
-
-fpath = 'https://s3-us-west-2.amazonaws.com/landsat-pds/L8/073/231/LC80732312016158LGN00/LC80732312016158LGN00_B4.TIF'
-
-src_image = rasterio.open(fpath)
+    # src_image = rasterio.open(fullURL)
 
 
-# convert image to numpy
-src_image_array = src_image.read(1)
-src_image_array = src_image_array.astype('f4')
-# replace zero items (ie array pixels out of image frame) with nan
-src_image_array[src_image_array == 0] = numpy.nan
+    # # convert image to numpy
+    # src_image_array = src_image.read(1)
+    # src_image_array = src_image_array.astype('f4')
+    # # replace zero items (ie array pixels out of image frame) with nan
+    # src_image_array[src_image_array == 0] = numpy.nan
 
-# clean up big data objects
-src_image_array = 0
-src_image = 0
+    # # clean up big data objects
+    # src_image_array = 0
+    # src_image = 0
 
+    # read true color image
+    rgb = make_color_image(4, 3, 2, fullURL)
 
-# read true color image
-rbg = make_color_image(4, 3, 2, fpath)
+    with rasterio.open('example.tif', 'w', **rgb) as dst:
+            dst.write(1)
 
-#read true color image equalized
-rgb = make_color_image_eqh(4, 3, 2, fpath)
+    # #read true color image equalized
+    # rgb = make_color_image_eqh(4, 3, 2, fullURL)
+
+    print(rgb)
+    sys.stdout.flush()
 
 
 
