@@ -7,13 +7,13 @@ import routes from './routes';
 
 const app = express();
 
-const mongoConnect = async () => {
-  await mongoose.connect(`${process.env.MONGODB_CLUSTER}`).then(() => {
-    console.log('Successfully connected database')
-  });
-  mongoose.Promise = global.Promise;
-}
-mongoConnect()
+// const mongoConnect = async () => {
+//   await mongoose.connect(`${process.env.MONGODB_CLUSTER}`).then(() => {
+//     console.log('Successfully connected database')
+//   });
+//   mongoose.Promise = global.Promise;
+// }
+// mongoConnect()
 
 
 app.use(express.json());

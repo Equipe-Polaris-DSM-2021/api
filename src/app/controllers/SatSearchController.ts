@@ -57,7 +57,6 @@ class SatSearchController {
       }
     }
 
-
   // with crawler method
   // try {
   //   const { bbox, cloudCover, date_initial, date_final } = req.body
