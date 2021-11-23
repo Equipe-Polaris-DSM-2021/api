@@ -17,6 +17,7 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
   const token = authorization.replace('Bearer', '').trim();
 
   try {
+    // obrigatorio utilizar .env para guardar a chave secreta do token: 'secret' como exemplo   
     const data = jwt.verify(token, 'secret');
 
     const { id } = data as TokenPayload;
