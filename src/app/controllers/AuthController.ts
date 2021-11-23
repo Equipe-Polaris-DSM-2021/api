@@ -23,7 +23,7 @@ class AuthController {
       return res.sendStatus(401);
     }
     
-    const token = jwt.sign({id: user.id}, `${process.env.AUTH_SECRET_KEY}`, {expiresIn: '1d'});
+    const token = jwt.sign({id: user.id}, `secret`, {expiresIn: '1d'});
     
    // @ts-expect-error proteção para o usuário, sem expor a senha para o client-side
     delete user.password;
