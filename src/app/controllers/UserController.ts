@@ -42,8 +42,10 @@ class UserController {
       const userRepository = getRepository(User);
   
       const user = await userRepository.update(id, { name: name })
-  
-      return res.json(user)
+      
+      const userUpdated = await userRepository.findOne({ where: { id } })
+
+      return res.json({ "message":"Dados atualizados com sucesso." })
 
     } catch (err) {
       console.log("err:" + err)
