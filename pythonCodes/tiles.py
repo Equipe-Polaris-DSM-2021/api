@@ -7,7 +7,7 @@ destination_path = "./pythonCodes/temp"
 def create_tiles(source_path, destination_path):
 
   options = {
-    'zoom': 8,
+    'zoom': (10, 16),
     'nb_processes': 4,
     'tile_size': 512,
     'srs':'EPSG:4326'

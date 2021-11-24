@@ -18,28 +18,12 @@ export class CreateUsersTable1631113275149 implements MigrationInterface {
                     type: "varchar"
                 },
                 {
-                    name: "surname",
-                    type: "varchar"
-                },
-                {
                     name: "email",
                     type: "varchar",
                     isUnique: true
                 },
                 {
                     name: "password",
-                    type: "varchar"
-                },
-                {
-                    name: "city",
-                    type: "varchar"
-                },
-                {
-                    name: "state",
-                    type: "varchar"
-                },
-                {
-                    name: "country",
                     type: "varchar"
                 },
             ],
@@ -50,5 +34,4 @@ export class CreateUsersTable1631113275149 implements MigrationInterface {
         await queryRunner.dropTable('users');
         await queryRunner.query('DROP EXTENSION "uuid-ossp"');
     }
-
 }

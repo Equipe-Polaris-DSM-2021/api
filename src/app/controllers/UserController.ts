@@ -13,19 +13,15 @@ class UserController {
 
   async store(req: Request, res: Response) {
     const userRepository = getRepository(User);
-    const { name, surname, email, password, city, state, country } = req.body
+    const { name, email, password } = req.body
 
     const userExists = await userRepository.findOne({ where: { email } })
 
     if (!userExists) {
       const user = userRepository.create({
         name,
-        surname,
         email,
         password,
-        city,
-        state,
-        country
       });
 
       await userRepository.save(user)
@@ -35,6 +31,24 @@ class UserController {
       return res.sendStatus(409);
     }
 
+  }
+
+  async update(req: Request, res: Response) {
+    const { name, email } = req.body
+
+    const { id } = req.params
+    
+    try {
+      const userRepository = getRepository(User);
+  
+      const user = await userRepository.update(id, { name: name })
+  
+      return res.json(user)
+
+    } catch (err) {
+      console.log("err:" + err)
+      return res.json({"err": `${err}`})
+    }
   }
 }
 

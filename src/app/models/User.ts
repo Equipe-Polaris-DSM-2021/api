@@ -10,22 +10,10 @@ class User {
   name: string;
 
   @Column()
-  surname: string;
-
-  @Column()
   email: string;
 
   @Column()
   password: string;
-
-  @Column()
-  city: string;
-
-  @Column()
-  state: string;
-
-  @Column()
-  country: string;
 
   @BeforeInsert()
   @BeforeUpdate()
