@@ -50,4 +50,6 @@ As seguintes tecnologias e ferramentas estão sendo utilizadas neste projeto:
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [ExpressJS](https://expressjs.com/pt-br/)
+- [TypeORM](https://typeorm.io/#/)
+- [PostgreSQL](https://www.postgresql.org/docs/)
 - [Jest](https://jestjs.io/docs/getting-started)
