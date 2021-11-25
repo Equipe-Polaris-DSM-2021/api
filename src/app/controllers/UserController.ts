@@ -34,14 +34,14 @@ class UserController {
   }
 
   async update(req: Request, res: Response) {
-    const { name, email } = req.body
+    const { name, email, password } = req.body
 
     const { id } = req.params
     
     try {
       const userRepository = getRepository(User);
   
-      const user = await userRepository.update(id, { name: name })
+      const user = await userRepository.update(id, { name: name, email: email, password: password })
       
       const userUpdated = await userRepository.findOne({ where: { id } })
 
