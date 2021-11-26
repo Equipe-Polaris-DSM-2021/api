@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import { User } from '../models/User';
+import bcrypt from 'bcryptjs'
 
 class UserController {
   async index(req: Request, res: Response) {
@@ -35,17 +36,16 @@ class UserController {
 
   async update(req: Request, res: Response) {
     const { name, email, password } = req.body
-
     const { id } = req.params
     
     try {
       const userRepository = getRepository(User);
-  
-      const user = await userRepository.update(id, { name: name, email: email, password: password })
+      const encryptedPassword = bcrypt.hashSync(password, 8);
+      const user = await userRepository.update(id, { name: name, email: email, password: encryptedPassword })
       
       const userUpdated = await userRepository.findOne({ where: { id } })
 
-      return res.json({ "message":"Dados atualizados com sucesso." })
+      return res.json(userUpdated)
 
     } catch (err) {
       console.log("err:" + err)
