@@ -12,6 +12,7 @@ const router = Router();
 router.get('/users', authMiddleware,UserController.index);
 router.post('/users', UserController.store);
 router.put('/users/:id', authMiddleware, UserController.update);
+router.delete('/users/:id', authMiddleware, UserController.destroy);
 router.post('/auth', AuthController.authenticate);
 
 router.post('/satSearch', SatSearchController.index);

@@ -52,6 +52,21 @@ class UserController {
       return res.json({"err": `${err}`})
     }
   }
+
+  async destroy(req: Request, res: Response) {
+    const { id } = req.params || req.body
+    
+    try {
+      const userRepository = getRepository(User);
+      const user = await userRepository.delete(id);
+
+      return res.json({"message": "usuário deletado com sucesso"})
+
+    } catch (err) {
+      console.log("err:" + err)
+      return res.json({"err": `${err}`})
+    }
+  }
 }
 
 export default new UserController(); 
